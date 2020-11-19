@@ -1,0 +1,209 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <label class="title">Update Profile</label>
+          </div>
+          <form
+            role="form"
+            name="updateProfileForm"
+            [formGroup]="updateProfileForm"
+            novalidate
+          >
+            <div class="card-body">
+              <div class="form-group">
+                <label for="first-name"
+                  >First Name<span class="required"> *</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first-name"
+                  placeholder="Enter First Name"
+                  name="first-name"
+                  formControlName="firstName"
+                />
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('firstName').valid &&
+                    updateProfileForm.get('firstName').errors.required &&
+                    updateProfileForm.get('firstName').touched
+                  "
+                  class="required"
+                >
+                  {{ 'firstNameRequired' | translate }}
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="last-name"
+                  >Last Name<span class="required"> *</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last-name"
+                  placeholder="Enter Last Name"
+                  name="last-name"
+                  formControlName="lastName"
+                />
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('lastName').valid &&
+                    updateProfileForm.get('lastName').errors.required &&
+                    updateProfileForm.get('lastName').touched
+                  "
+                  class="required"
+                >
+                {{this.utilityService.getString('lastNameRequired')}}
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="email">Email<span class="required"> *</span></label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter Email"
+                  name="email"
+                  formControlName="email"
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="phone"
+                  >Contact Number<span class="required"> *</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phone"
+                  placeholder="Enter Contact Number"
+                  name="phone"
+                  formControlName="phone"
+                  maxlength="30"
+                />
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('phone').valid &&
+                    updateProfileForm.get('phone').errors.required &&
+                    updateProfileForm.get('phone').touched
+                  "
+                  class="required"
+                >
+                {{this.utilityService.getString('contactNumberRequired')}}
+                </span>
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('phone').valid &&
+                    updateProfileForm.get('phone').errors.pattern
+                  "
+                  class="required"
+                >
+                {{this.utilityService.getString('contactNumberInvalid')}}
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="old-password">Old Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="old-password"
+                  placeholder="Enter Old Password"
+                  name="old-password"
+                  formControlName="oldPassword"
+                />
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('oldPassword').valid &&
+                    updateProfileForm.get('oldPassword').errors.minlength
+                  "
+                  class="required"
+                >
+                {{this.utilityService.getString('oldPasswordMinLength')}}
+                </span>
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('oldPassword').valid &&
+                    updateProfileForm.get('oldPassword').errors.maxlength
+                  "
+                  class="required"
+                >
+                {{this.utilityService.getString('oldPasswordMaxLength')}}
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="new-password"
+                  placeholder="Enter New Password"
+                  name="new-password"
+                  formControlName="newPassword"
+                />
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('newPassword').valid &&
+                    updateProfileForm.get('newPassword').errors.minlength
+                  "
+                  class="required"
+                >
+                {{this.utilityService.getString('newPasswordMinLength')}}
+                </span>
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('newPassword').valid &&
+                    updateProfileForm.get('newPassword').errors.maxlength
+                  "
+                  class="required"
+                >
+                {{this.utilityService.getString('newPasswordMaxLength')}}
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="confirm-password">Confirm New Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirm-password"
+                  placeholder="Enter Confirm New Password"
+                  name="confirm-password"
+                  formControlName="confirmPassword"
+                />
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('confirmPassword').valid &&
+                    updateProfileForm.get('confirmPassword').errors.minlength
+                  "
+                  class="required"
+                >
+                {{this.utilityService.getString('confirmPasswordMinLength')}}
+                </span>
+                <span
+                  *ngIf="
+                    !updateProfileForm.get('confirmPassword').valid &&
+                    updateProfileForm.get('confirmPassword').errors.maxlength
+                  "
+                  class="required"
+                >
+                {{this.utilityService.getString('confirmPasswordMaxLength')}}
+                </span>
+              </div>
+            </div>
+            <div class="card-footer footer">
+              <button
+                type="submit"
+                (click)="onSubmit()"
+                class="btn btn-success"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,94 @@
+<ng-container *ngIf="isCustomLayout else layoutEnabled">
+    <router-outlet>
+        <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" loadingText="Loading..."
+            type="ball-scale-multiple">
+        </ngx-spinner>
+    </router-outlet>
+</ng-container>
+<ng-template #layoutEnabled>
+    <mk-layout-wrapper>
+        <mk-layout-header [isSidebarLeftToggle]="true" [isSidebarRightToggle]="false"
+            [logoLink]="['/', 'admin', 'home']">
+            <mk-layout-header-logo><img src="" width="200" alt="logo"></mk-layout-header-logo>
+            <mk-layout-header-logo-mini><img src="" class="logo-min-g">
+            </mk-layout-header-logo-mini>
+            <div class="profile-users">
+                <span class="profile-name" [routerLink]="['admin/profile']">
+                    <img *ngIf="imageName !== null" class="profile-image" src="{{image}}">
+                    <i *ngIf="imageName === null" class="fa fa-user-circle-o" aria-hidden="true"></i> &nbsp; Profile
+                </span>
+                <span class="profile-name logout" (click)="logout()">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Logout
+                </span>
+            </div>
+        </mk-layout-header>
+        <mk-layout-sidebar-left>
+            <div class="skin-red sidebar-mini">
+                <aside class="main-sidebar">
+                    <section class="sidebar">
+                        <ul id="side-menu" class="sidebar-menu" [ngClass]="activeMenu" *ngIf="sideMenu && sideMenu.length > 0">
+                            <ng-container *ngFor="let menu of sideMenu; let i = index;">
+                                <li *ngIf="menu.route" class="menu2" [ngClass]="activeClass(menu.label, 'li')"
+                                    [routerLink]="[menu.route]">
+                                    <a href="javascript:" aria-expanded="false" data-toggle="collapse">
+                                        <i *ngIf="menu.iconClasses" class="{{menu.iconClasses}}"></i>
+                                        <span class="labelMenu">{{menu.label}}</span>
+                                    </a>
+                                </li>
+                                <li *ngIf="!menu.route" class="menu1" [ngClass]="activeClass(menu.label, 'li')">
+                                    <a href="javascript:" aria-expanded="false" data-toggle="collapse">
+                                        <i *ngIf="menu.iconClasses" class="{{menu.iconClasses}}"></i>
+                                        <span class="labelMenu">{{menu.label}}
+                                            <span class="bedge pull-right" [ngClass]="activeClass(menu.label, 'bedge')">
+                                                {{ agenda }}
+                                            </span>
+                                        </span>
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </a>
+                                    <ng-container *ngIf="menu['children'] && menu['children'].length > 0">
+                                        <ul class="treeview-menu2 {{menu.label+i}}" [ngClass]="activeClass(menu.label, 'ul')">
+                                            <ng-container *ngFor="let cmenu of menu.children; let j = index;">
+                                                <li *ngIf="cmenu.route" [routerLink]="[cmenu.route]"
+                                                    [ngClass]="activeClass(cmenu.label, 'child1-li', menu.label)">
+                                                    <a href="javascript:" aria-expanded="false">
+                                                        <i *ngIf="cmenu.iconClasses" class="{{cmenu.iconClasses}}"></i>
+                                                        <span>{{cmenu.label}}
+                                                            <span *ngIf="cmenu.label === 'To Do'"
+                                                                class="bedge pull-right"
+                                                                [ngClass]="activeClass(cmenu.label, 'bedge')">
+                                                                {{ todo }}
+                                                            </span>
+                                                            <span *ngIf="cmenu.label === 'Calendar Management'"
+                                                                class="bedge pull-right"
+                                                                [ngClass]="activeClass(cmenu.label, 'bedge')">
+                                                                {{ event }}
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                    </ng-container>
+                                </li>
+                            </ng-container>
+
+
+                        </ul>
+                    </section>
+                </aside>
+            </div>
+        </mk-layout-sidebar-left>
+
+        <mk-layout-content>
+            <router-outlet>
+                <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" loadingText="Loading..."
+                    type="ball-scale-multiple">
+                </ngx-spinner>
+            </router-outlet>
+        </mk-layout-content>
+        <mk-layout-footer>
+            <mk-layout-footer-left> </mk-layout-footer-left>
+            <mk-layout-footer-right> </mk-layout-footer-right>
+        </mk-layout-footer>
+    </mk-layout-wrapper>
+    <ng-template>

@@ -1,0 +1,14 @@
+{
+    "newPassword": "Please enter new password",
+    "confirmPassword": "Confirm password doen't match with new password",
+    "firstNameRequired": "First name is required!",
+    "lastNameRequired": "Last name is required!",
+    "contactNumberRequired": "Contact number is required!",
+    "contactNumberInvalid": "Contact number is not valid!",
+    "oldPasswordMinLength": "Old password should contain atleast 6 characters!",
+    "oldPasswordMaxLength": "Old password should contain max 30 characters!",
+    "newPasswordMinLength": "New password should contain atleast 6 characters!",
+    "newPasswordMaxLength": "New password should contain max 30 characters!",
+    "confirmPasswordMinLength": "Confirm password should contain atleast 6 characters!",
+    "confirmPasswordMaxLength": "Confirm password should contain max 30 characters!"
+}

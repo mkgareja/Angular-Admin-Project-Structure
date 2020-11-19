@@ -1,0 +1,56 @@
+stages:
+  - build
+  - deploy
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - node_modules/
+  - dist-dev/
+  - dist-stage/
+  - dist-prod/
+
+build_development:
+  stage: build
+  script:
+  - npm install
+  - npm run build-development
+  only: ['development']
+
+build_stage:
+  stage: build
+  script:
+  - npm install
+  - npm run build-stage
+  only: ['stage']
+  
+build_Producttion:
+  stage: build
+  script:
+  - npm install
+  - npm run build-prod
+  only: ['master']
+  
+deploy_development:
+  stage: deploy
+  script:
+  - rsync -zvhr -e ssh dist-dev/ ubuntu@$Dev_Server_IP:/var/sites/dev/ixoop-admin-angular/
+  only: ['development']
+  
+deploy_stage:
+  stage: deploy
+  script:
+  - rsync -zvhr -e ssh dist-stage/ ubuntu@$Dev_Server_IP:/var/sites/stage/ixoop-admin-angular/
+  only: ['stage']
+  
+deploy_production:
+  stage: deploy
+  script:
+  - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+  - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+  - aws configure set default.region $AWS_DEFAULT_REGION
+  - aws s3 sync dist-prod/ $S3_BUCKET
+  - aws cloudfront create-invalidation --distribution-id $Cloudfront_ID  --paths "/*"
+  - rm -rf $AWS_PATH
+  only: ['master']
+
